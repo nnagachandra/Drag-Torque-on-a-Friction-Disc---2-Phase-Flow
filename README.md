@@ -295,6 +295,13 @@ case/
     └── functions            ← torque function object
 ```
 
+
+<img width="555" height="298" alt="image" src="https://github.com/user-attachments/assets/d85dd9f7-2df1-4116-ae54-b734cf20ef06" />
+<img width="555" height="298" alt="image" src="https://github.com/user-attachments/assets/41f7fdf0-5a1a-4539-a110-a4af1e39c2ec" />
+<img width="555" height="298" alt="image" src="https://github.com/user-attachments/assets/1964ad0e-f7b5-4077-86ac-781b63972e70" />
+
+
+
 ---
 
 *OpenFOAM 12 | incompressibleVoF | NCC Sliding Mesh | Two-Phase Flow*
