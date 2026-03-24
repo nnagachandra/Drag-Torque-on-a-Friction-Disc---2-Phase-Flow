@@ -1,0 +1,47 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    object      functions;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+#includeFunc residuals
+
+// ── Function objects ──────────────────────────────
+// Torque on disc surfaces — our primary output
+
+#includeFunc isoSurface(isoField=alpha.oil, isoValue=0.5)
+
+torque_disc
+{
+    type            forces;
+    libs            ("libforces.so");
+
+    writeControl    timeStep;
+    timeInterval    1;
+    log             yes;
+
+    // All three disc patches
+    patches         (fric_assembly_zone0
+                     fric_assembly_zone1
+                     fric_assembly_zone2);
+
+    // Incompressible — reference density
+    rho             rhoInf;
+    rhoInf          860;        // oil density kg/m³ : Not sure about this, cuz air should also be contributing
+
+    // Disc centre and rotation axis
+    CofR            (0 0 0);
+    pitchAxis       (0 0 1);    // Z axis = rotation axis
+}
+// ************************************************************************* //

@@ -1,0 +1,37 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      p_rgh;
+}
+dimensions      [1 -1 -2 0 0 0 0];
+internalField   uniform 0;
+boundaryField
+{
+    #includeEtc "caseDicts/setConstraintTypes"
+
+    atmosphere
+    {
+        type            prghEntrainmentPressure;
+        p0              uniform 0;
+        value           uniform 0;
+    }
+    tankFloor       { type fixedFluxPressure; value uniform 0; }
+    tankWall_front  { type fixedFluxPressure; value uniform 0; }
+    tankWall_back   { type fixedFluxPressure; value uniform 0; }
+    tankWall_left   { type fixedFluxPressure; value uniform 0; }
+    tankWall_right  { type fixedFluxPressure; value uniform 0; }
+    fric_assembly_zone0 { type fixedFluxPressure; value uniform 0; }
+    fric_assembly_zone1 { type fixedFluxPressure; value uniform 0; }
+    fric_assembly_zone2 { type fixedFluxPressure; value uniform 0; }
+    nonCouple       { type fixedFluxPressure; value uniform 0; }
+}
+// ************************************************************************* //

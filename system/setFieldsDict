@@ -1,0 +1,49 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+
+defaultFieldValues
+(
+    // Everything starts as air (alpha.oil = 0)
+    volScalarFieldValue alpha.oil 0
+);
+
+regions
+(
+    // Fill everything below oil surface with oil
+    // Oil surface at Y = -0.0206m (40% of disc diameter)
+    // Disc bottom at Y = -0.1032m
+    // Oil fills from tank floor to Y = -0.0206m
+    boxToCell
+    {
+        box (-1e300 -1e300 -1e300) (1e300 -0.0206 1e300); 
+ // box co-ordinates are infinity, only Y value changes to put the level of oil
+ // rest of it is automatically trimmed by OpenFOAM
+		fieldValues
+        (
+            volScalarFieldValue alpha.oil 1
+        );
+    }
+
+    boxToFace
+    {
+        box (-1e300 -1e300 -1e300) (1e300 -0.0206 1e300);
+        fieldValues
+        (
+            volScalarFieldValue alpha.oil 1
+        );
+    }
+);
+
+// ************************************************************************* //

@@ -1,0 +1,27 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      physicalProperties.oil;
+}
+
+viscosityModel  constant;
+
+// Kinematic viscosity of ATF oil at operating temperature
+// ATF at 80°C: ~15-20 cSt = 15-20e-6 m²/s
+// Using 20°C value for conservative first run: ~46 cSt
+nu              46e-6;
+
+// Oil density kg/m³
+// Typical ATF: 850-870 kg/m³
+rho             860;
+
+// ************************************************************************* //

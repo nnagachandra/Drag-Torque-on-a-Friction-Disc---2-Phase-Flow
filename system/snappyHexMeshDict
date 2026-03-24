@@ -1,0 +1,150 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    object      snappyHexMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// Following propeller tutorial approach:
+//   AMI_part.stl  → cellZone "innerCylinder" + faceZone "innerCylinder"
+//   fric_assembly.stl → disc wall patches
+// createBaffles then converts faceZone → nonCouple1 + nonCouple2
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+castellatedMesh  true;
+snap             true;
+addLayers        true;
+
+geometry
+{
+    // Cylinder defining rotating zone boundary
+    // r=65mm, Z=±12.5mm — must enclose disc (OD=103mm) — wait, 65mm < 103mm!
+    // Actually AMI_part.stl r=65mm is SMALLER than disc OD 103mm
+    // So disc STL extends outside the cylinder — snappy will clip it
+    // We need AMI_part.stl radius > disc OD radius
+    // Disc OD = 103.2mm → use r=120mm for AMI cylinder
+    // BUT our existing AMI_part.stl is r=65mm...
+    // For now use what we have — snappy will handle geometry inside
+    AMI_part
+    {
+        type    triSurfaceMesh;
+        file    "AMI_part.stl";
+        regions
+        {
+			type 	triSurfaceMesh;
+			file	"AMI_part.stl";
+        }
+    }
+
+    fric_assembly
+    {
+        type    triSurfaceMesh;
+        file    "fric_assembly.stl";
+    }
+}
+
+castellatedMeshControls
+{
+    maxLocalCells       2000000;
+    maxGlobalCells      10000000;
+    minRefinementCells  5;
+    nCellsBetweenLevels 3;
+    resolveFeatureAngle 30;
+
+    features
+    (
+        { file "fric_assembly.eMesh"; level 4; }
+        { file "AMI_part.eMesh";      level 2; }
+    );
+
+    refinementSurfaces
+    {
+        AMI_part
+        {
+            level (2 2);
+            // This creates the cellZone and faceZone
+            cellZone    innerCylinder;
+            faceZone    innerCylinder;
+            mode        inside;
+        }
+        fric_assembly
+        {
+            level (3 3);
+        }
+    }
+
+    refinementRegions
+    {
+        AMI_part
+        {
+            mode    inside;
+            levels  ((1E15 2));
+        }
+    }
+
+    // Point in stationary zone (outside AMI cylinder r=130mm)
+    insidePoint ( 0.0  0.130  0.0 );
+
+    allowFreeStandingZoneFaces false;
+}
+
+snapControls
+{
+    nSmoothPatch        3;
+    tolerance           2.0;
+    nSolveIter          30;
+    nRelaxIter          5;
+    nFeatureSnapIter    10;
+    implicitFeatureSnap false;
+    explicitFeatureSnap true;
+    multiRegionFeatureSnap false;
+}
+
+addLayersControls
+{
+    relativeSizes       true;
+    layers
+    {
+        fric_assembly   { nSurfaceLayers 3; }
+    }
+    expansionRatio          1.2;
+    finalLayerThickness     0.3;
+    minThickness            0.1;
+    featureAngle            60;
+    nRelaxIter              3;
+    nSmoothThickness        10;
+    nLayerIter              50;
+    nGrow                   0;
+    maxFaceThicknessRatio   0.5;
+    nBufferCellsNoExtrude   0;
+}
+
+meshQualityControls
+{
+    maxNonOrtho         65;
+    maxBoundarySkewness 20;
+    maxInternalSkewness 4;
+    maxConcave          80;
+    minFlatness         0.5;
+    minVol              1e-13;
+    minTetQuality       1e-15;
+    minArea             -1;
+    minTwist            0.02;
+    minDeterminant      0.001;
+    minFaceWeight       0.05;
+    minVolRatio         0.01;
+    minTriangleTwist    -1;
+    nSmoothScale        4;
+    errorReduction      0.75;
+}
+
+mergeTolerance 1e-6;
+
+// ************************************************************************* //

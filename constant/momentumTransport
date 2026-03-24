@@ -1,0 +1,20 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      momentumTransport;
+}
+
+// Laminar for first run — avoids turbulence model
+// complexity while validating setup
+// Switch to RAS kOmegaSST for production runs
+simulationType  laminar;
+// ************************************************************************* //

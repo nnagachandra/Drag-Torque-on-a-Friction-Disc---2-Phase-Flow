@@ -1,0 +1,40 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       volVectorField;
+    location    "0";
+    object      U;
+}
+dimensions      [0 1 -1 0 0 0 0];
+internalField   uniform (0 0 0);
+boundaryField
+{
+    #includeEtc "caseDicts/setConstraintTypes"
+
+    atmosphere
+    {
+        type            pressureInletOutletVelocity;
+        value           uniform (0 0 0);
+    }
+    tankFloor       { type noSlip; }
+    tankWall_front  { type noSlip; }
+    tankWall_back   { type noSlip; }
+    tankWall_left   { type noSlip; }
+    tankWall_right  { type noSlip; }
+    fric_assembly_zone0 { type movingWallVelocity; value uniform (0 0 0); }
+    fric_assembly_zone1 { type movingWallVelocity; value uniform (0 0 0); }
+    fric_assembly_zone2 { type movingWallVelocity; value uniform (0 0 0); }
+    nonCouple
+    {
+        type    movingWallSlipVelocity;
+        value   uniform (0 0 0);
+    }
+}
+// ************************************************************************* //

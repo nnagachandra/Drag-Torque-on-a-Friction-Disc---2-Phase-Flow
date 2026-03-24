@@ -1,0 +1,50 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+
+application     foamRun;
+solver          incompressibleVoF;
+
+startFrom       latestTime;
+startTime       0;
+stopAt          endTime;
+
+// Run for 2 seconds — enough to see ~3 full rotations
+// at 100 RPM (1 rotation = 0.6s)
+
+endTime         2;
+
+// Initial timestep — will be adjusted by maxCo
+
+deltaT          1e-3;
+
+writeControl    adjustableRunTime;
+writeInterval   0.005;       // write every 0.01s = 400 snapshots
+
+purgeWrite      0;
+writeFormat     binary;     // faster than ascii for large meshes
+writePrecision  6;
+writeCompression off;
+timeFormat      general;
+timePrecision   6;
+runTimeModifiable true;
+
+// Adaptive timestepping based on Courant number
+
+adjustTimeStep  yes;
+maxCo           0.5;        // VOF requires Co < 0.5 for stability
+maxAlphaCo      0.5;        // interface Courant number limit
+
+
+// ************************************************************************* //

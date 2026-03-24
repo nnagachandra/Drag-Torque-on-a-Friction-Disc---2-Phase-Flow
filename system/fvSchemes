@@ -1,0 +1,60 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+
+ddtSchemes
+{
+    // First order time integration
+    // Stable for VOF with moving mesh
+    default         Euler;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+}
+
+divSchemes
+{
+    default         none;
+
+    // Momentum convection — vanLeerV is bounded
+    // and stable for rotating flows
+    div(rhoPhi,U)   Gauss vanLeerV;
+
+    // Interface compression scheme
+    // vanLeer with compression factor 1 keeps
+    // interface sharp without smearing
+    div(phi,alpha)  Gauss interfaceCompression vanLeer 1;
+
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    // corrected handles non-orthogonality
+    // our max non-ortho is 65° — corrected is appropriate
+    default         corrected;
+}
+// ************************************************************************* //

@@ -1,0 +1,72 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// Simple single-block background mesh
+// snappyHexMesh will refine disc geometry and create cellZone/faceZone
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+scale 1;
+
+vertices
+(
+    ( -0.150  -0.150  -0.025 )   // 0
+    (  0.150  -0.150  -0.025 )   // 1
+    (  0.150   0.150  -0.025 )   // 2
+    ( -0.150   0.150  -0.025 )   // 3
+    ( -0.150  -0.150   0.025 )   // 4
+    (  0.150  -0.150   0.025 )   // 5
+    (  0.150   0.150   0.025 )   // 6
+    ( -0.150   0.150   0.025 )   // 7
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) (40 40 7) simpleGrading (1 1 1)
+);
+
+boundary
+(
+    atmosphere
+    {
+        type patch;
+        faces ( (7 6 2 3) );
+    }
+    tankFloor
+    {
+        type wall;
+        faces ( (0 1 5 4) );
+    }
+    tankWall_front
+    {
+        type wall;
+        faces ( (4 5 6 7) );
+    }
+    tankWall_back
+    {
+        type wall;
+        faces ( (0 3 2 1) );
+    }
+    tankWall_left
+    {
+        type wall;
+        faces ( (0 4 7 3) );
+    }
+    tankWall_right
+    {
+        type wall;
+        faces ( (1 2 6 5) );
+    }
+);
+
+// ************************************************************************* //

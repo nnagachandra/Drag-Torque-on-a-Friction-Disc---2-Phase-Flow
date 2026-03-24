@@ -1,0 +1,45 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    object      createBafflesDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// Converts faceZone "innerCylinder" (created by snappyHexMesh) into
+// two plain patch pairs for createNonConformalCouples
+// Exactly following propeller tutorial approach
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+internalFacesOnly true;
+
+baffles
+{
+    nonCouple
+    {
+        type        faceZone;
+        zoneName    innerCylinder;
+
+        patches
+        {
+            owner
+            {
+                name        AMI_stationary;
+                type        wall;
+            }
+            neighbour
+            {
+                name        AMI_rotating;
+                type        wall;
+            }
+        }
+    }
+}
+
+// ************************************************************************* //

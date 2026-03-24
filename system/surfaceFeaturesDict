@@ -1,0 +1,33 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    object      surfaceFeaturesDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// List of STL surfaces to process
+surfaces
+(
+    "fric_assembly.stl"
+    "AMI_part.stl"
+);
+
+// How to extract features
+extractionMethod    extractFromSurface;
+
+includedAngle   150;    // extract edges sharper than 30° from flat
+
+
+// Write a .obj file so you can visualise
+// the extracted edges in ParaView
+writeObj    yes;
+
+// ************************************************************************* //
