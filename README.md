@@ -297,10 +297,10 @@ case/
 
 
 <img width="555" height="298" alt="image" src="https://github.com/user-attachments/assets/d85dd9f7-2df1-4116-ae54-b734cf20ef06" />
+<figcaption>This is your image caption</figcaption>
 <img width="555" height="298" alt="image" src="https://github.com/user-attachments/assets/41f7fdf0-5a1a-4539-a110-a4af1e39c2ec" />
 <img width="555" height="298" alt="image" src="https://github.com/user-attachments/assets/1964ad0e-f7b5-4077-86ac-781b63972e70" />
-
-
+<img width="555" height="298" alt="viscous_torque_z" src="https://github.com/user-attachments/assets/b8b038c4-79e8-4e4a-b5b7-7d59c1b0100a" />
 
 ---
 
