@@ -267,6 +267,12 @@ In a closed bath, torque decreases over time as the oil spins up with the disc. 
 
 ---
 
+## 9. Planned Extensions
+
+- **Phase 2:** Turbulent flow at 1000 RPM using k-omega SST
+- **Phase 3:** Conjugate heat transfer, thermal effects on drag torque
+- **Phase 4:** Parametric sweep across RPM and fill level
+
 ## File Structure
 
 ```
