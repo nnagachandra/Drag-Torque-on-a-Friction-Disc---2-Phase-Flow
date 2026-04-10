@@ -6,7 +6,7 @@ Two-phase oil/air flow simulation of a rotating wet friction disc in a closed oi
 
 ## 1. Aim
 
-Compute the viscous drag torque acting on a friction disc rotating at 100 RPM, partially submerged in oil (40% fill). The disc runs in a closed bath with oil and air as the two phases.
+Wet clutch and differential systems rely on accurate drag torque prediction to optimize cooling groove design and minimize parasitic losses. This simulation builds a baseline multiphase CFD model for a rotating friction disc in an oil bath, with planned extensions toward turbulent flow and conjugate heat transfer.
 
 **Key objectives:**
 - Two-phase flow (oil/air) using VoF
