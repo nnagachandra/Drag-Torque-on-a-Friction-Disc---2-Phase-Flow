@@ -298,22 +298,24 @@ case/
 
 <figure>
 <img width="555" height="298" alt="Mesh overview" src="https://github.com/user-attachments/assets/d85dd9f7-2df1-4116-ae54-b734cf20ef06" />
-<figcaption>Figure 1: snappyHexMesh result showing the friction disc and NCC interface</figcaption>
+<figcaption>Figure 1: Mesh Overview: friction disc and NCC interface </figcaption>
 </figure>
 
 <figure>
 <img width="555" height="298" alt="Velocity field" src="https://github.com/user-attachments/assets/41f7fdf0-5a1a-4539-a110-a4af1e39c2ec" />
-<figcaption>Figure 2: Velocity magnitude field at t = 2.0 s</figcaption>
+<figcaption>
+    Figure 2: Alpha.Oil and Velocity Glyphs at 0.6 s 
+</figcaption>
 </figure>
 
 <figure>
 <img width="555" height="298" alt="Oil distribution" src="https://github.com/user-attachments/assets/1964ad0e-f7b5-4077-86ac-781b63972e70" />
-<figcaption>Figure 3: Oil volume fraction (alpha.oil) at t = 2.0 s</figcaption>
+<figcaption>Figure 3: Oil distribution at 1 complete rotation </figcaption>
 </figure>
 
 <figure>
 <img width="555" height="298" alt="Viscous torque vs time" src="https://github.com/user-attachments/assets/b8b038c4-79e8-4e4a-b5b7-7d59c1b0100a" />
-<figcaption>Figure 4: Viscous drag torque (Mz) vs simulation time</figcaption>
+<figcaption>Figure 4: Viscous drag torque (Mz) vs simulation time </figcaption>
 </figure>
 
 ---
